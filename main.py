@@ -19,8 +19,17 @@ while running:
     # intégration de l'image de fond dans la fenêtre avec blit()
     screen.blit(background, (0, 0))
     
+    # intégration de l'image du joueur
     screen.blit(game.player.image, game.player.rect)
+
+    for projectile in game.player.all_projectiles:
+        projectile.move()
+
+    # intégration de l'image du projectile
+    game.player.all_projectiles.draw(screen)
     
+    # Vérification des touches utilisées par le joueur et récupération de sa position
+    # appels des méthodes permettant de déplacer le sprite du joueur
     if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
         game.player.move_right() 
 
@@ -45,6 +54,9 @@ while running:
             
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True
-            
+  
+            if event.key == pygame.K_SPACE:
+                game.player.launch_projectile()
+                
         elif event.type == pygame.KEYUP:        
             game.pressed[event.key] = False 
