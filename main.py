@@ -27,6 +27,12 @@ while running:
 
     # intégration de l'image du projectile
     game.player.all_projectiles.draw(screen)
+
+    # intégration de l'image de l'ennemi
+    game.all_enemies.draw(screen)
+
+    for enemy in game.all_enemies:
+        enemy.forward()
     
     # Vérification des touches utilisées par le joueur et récupération de sa position
     # appels des méthodes permettant de déplacer le sprite du joueur
