@@ -10,6 +10,7 @@ class Game:
         self.all_enemies = pygame.sprite.Group()
         self.pressed = {}
         self.spawn_enemy()
+        self.spawn_enemy()
 
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)

@@ -21,6 +21,8 @@ while running:
     
     # intégration de l'image du joueur
     screen.blit(game.player.image, game.player.rect)
+    
+    game.player.update_health_bar(screen)
 
     for projectile in game.player.all_projectiles:
         projectile.move()
@@ -33,6 +35,7 @@ while running:
 
     for enemy in game.all_enemies:
         enemy.forward()
+        enemy.update_health_bar(screen)
     
     # Vérification des touches utilisées par le joueur et récupération de sa position
     # appels des méthodes permettant de déplacer le sprite du joueur
