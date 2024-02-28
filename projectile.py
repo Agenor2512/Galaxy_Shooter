@@ -21,9 +21,10 @@ class Projectile(pygame.sprite.Sprite):
     def move(self):
         self.rect.x += self.velocity
 
-        if self.player.game.check_collision(self, self.player.game.all_enemies):
+        for enemy in self.player.game.check_collision(self, self.player.game.all_enemies):
             self.remove_shoots()
-
+            enemy.damage(self.player.attack)
+        
         if self.rect.x > 1080:
             self.remove_shoots()
             print("Projectile supprimé !")
