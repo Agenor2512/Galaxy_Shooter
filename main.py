@@ -61,7 +61,7 @@ while running:
                 game.player.launch_projectile()
                 
         elif event.type == pygame.KEYUP:        
-            game.pressed[event.key] = False
+            game.pressed[event.key] = False   
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # verifie pour savoir si la souris est en collision avec le bouton jouer
