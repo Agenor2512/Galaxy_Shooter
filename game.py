@@ -18,7 +18,7 @@ class Game:
         self.spawn_enemy()
         self.spawn_enemy()
         
-    def game_over(self, counter):
+    def game_over(self):
         # remettre le jeu à neuf, retirer les ennemies, remettre le joueur a 100 de vie et le jeu en attente
         self.all_enemies = pygame.sprite.Group()
         self.comet_event.all_comets = pygame.sprite.Group()

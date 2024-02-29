@@ -40,6 +40,7 @@ retry_button_rect.y = math.ceil(screen.get_height() / 2)
 game = Game()
 
 running = True
+already_started = False
 
 while running:
     
@@ -54,12 +55,14 @@ while running:
         
     # vérifier si notre jeu n'a pas commencé
     else:
-        screen.blit(game_over, (game_over_rect))
-        screen.blit(retry_button, (retry_button_rect))
+        if already_started :
+            screen.blit(game_over, (game_over_rect))
+            screen.blit(retry_button, (retry_button_rect))
 
-        # ajout de l'écran de bienvenue
-        screen.blit(banner, (banner_rect))
-        screen.blit(play_button, (play_button_rect))
+        else:
+            # ajout de l'écran de bienvenue
+            screen.blit(banner, (banner_rect))
+            screen.blit(play_button, (play_button_rect))
                
     # permet la mise à jour du contenu de la fenêtre
     pygame.display.flip()
@@ -84,4 +87,5 @@ while running:
             # verifie pour savoir si la souris est en collision avec le bouton jouer
             if play_button_rect.collidepoint(event.pos) or retry_button_rect.collidepoint(event.pos):
                 # mettre le jeu en mode "lancé"
+                already_started = True
                 game.start()

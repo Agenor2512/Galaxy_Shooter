@@ -5,10 +5,9 @@ from projectile import Projectile
 class Player(pygame.sprite.Sprite):
     
     # définition des propriétés du joueur
-    def __init__(self, game, screen):
+    def __init__(self, game):
         super().__init__()
         self.game = game
-        self.screen = screen
         self.health = 100
         self.max_health = 100
         self.attack = 12
@@ -25,7 +24,7 @@ class Player(pygame.sprite.Sprite):
             self.health -= amount
         else:
             # si le joueur n'a plus de points de vie
-            self.game.game_over(screen)
+            self.game.game_over()
         
     def update_health_bar(self, surface):
         
