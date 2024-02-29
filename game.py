@@ -1,7 +1,8 @@
 import pygame
 from player import Player
+from enemy.boss import Boss
 from comet_event import CometFallEvent
-from enemy import Enemy
+from enemy.ship import Ship
 
 class Game:
     def __init__(self):
@@ -9,6 +10,7 @@ class Game:
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
         self.all_players.add(self.player)
+        self.all_bosses = pygame.sprite.Group()
         self.comet_event = CometFallEvent(self)
         self.all_enemies = pygame.sprite.Group()
         self.pressed = {}
@@ -39,11 +41,13 @@ class Game:
             projectile.move()
 
         for enemy in self.all_enemies:
-            enemy.forward()
-            enemy.update_health_bar(screen)
+            enemy.update_state(screen)
             
         for comet in self.comet_event.all_comets:
             comet.fall(screen)
+
+        for boss in self.all_bosses:
+            boss.update_state(screen)
 
         # intégration de l'image du projectile
         self.player.all_projectiles.draw(screen)
@@ -53,6 +57,8 @@ class Game:
 
         # intégration de l'image de la comète
         self.comet_event.all_comets.draw(screen)
+
+        self.all_bosses.draw(screen)
 
         # Vérification des touches utilisées par le joueur et récupération de sa position
         # appels des méthodes permettant de déplacer le sprite du joueur
@@ -72,5 +78,8 @@ class Game:
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)
 
     def spawn_enemy(self):
-        enemy = Enemy(self)
+        enemy = Ship(self)
         self.all_enemies.add(enemy)
+
+    def spawn_boss(self):
+        self.all_bosses.add(Boss(self))

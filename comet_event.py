@@ -10,9 +10,10 @@ class CometFallEvent:
         self.percent_speed = 30
         self.game = game
         self.fall_mode = False
+        self.counter = 0
 
         # groupe de sprites pour stocker les comètes
-        self.all_comets =pygame.sprite.Group()
+        self.all_comets = pygame.sprite.Group()
     
     # permet d'ajouter un pourcentage à la barre en contrôlant sa vitesse de progression
     def add_percent(self):
@@ -33,6 +34,8 @@ class CometFallEvent:
     
     # active l'évènement grâce au booléen fall_mode
     def attempt_fall(self):
+        self.counter += 1
+
         if self.is_full_loaded() and len(self.game.all_enemies) == 0:
             print("Pluie de cometes !!")
             self.comet_fall()

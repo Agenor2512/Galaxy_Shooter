@@ -9,7 +9,7 @@ class Comet(pygame.sprite.Sprite):
         self.image = pygame.image.load("assets/comet.png")
         self.image = pygame.transform.scale(self.image, (150, 150))
         self.rect = self.image.get_rect()
-        self.velocity = random.randint(1, 3)
+        self.velocity = 6 #random.randint(1, 3)
         self.rect.x = random.randint(20, 800)
         self.rect.y = - random.randint(0, 800)
         self.origin_image = self.image
@@ -28,9 +28,12 @@ class Comet(pygame.sprite.Sprite):
             # reset la barre à 0
             self.comet_event.reset_percent()
 
-            # fait apparaître les monstres
-            self.comet_event.game.spawn_enemy()
-            self.comet_event.game.spawn_enemy()
+            if self.comet_event.counter < 1:
+                # fait apparaître les monstres
+                self.comet_event.game.spawn_enemy()
+                self.comet_event.game.spawn_enemy()
+            else:
+                self.comet_event.game.spawn_boss()
         
     def fall(self, surface):
         self.rect.y += self.velocity

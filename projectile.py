@@ -24,6 +24,10 @@ class Projectile(pygame.sprite.Sprite):
         for enemy in self.player.game.check_collision(self, self.player.game.all_enemies):
             self.remove_shoots()
             enemy.damage(self.player.attack)
+
+        for boss in self.player.game.check_collision(self, self.player.game.all_bosses):
+            self.remove_shoots()
+            boss.damage(self.player.attack)
         
         if self.rect.x > 1080:
             self.remove_shoots()
