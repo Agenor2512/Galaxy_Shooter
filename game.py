@@ -8,6 +8,7 @@ class Game:
         self.is_playing = False
         self.all_players = pygame.sprite.Group()
         self.player = Player(self)
+        self.enemy = Enemy(self)
         self.all_players.add(self.player)
         self.comet_event = CometFallEvent(self)
         self.all_enemies = pygame.sprite.Group()
@@ -26,6 +27,10 @@ class Game:
         self.player.health = self.player.max_health
         self.is_playing = False
 
+    def update_enemies_projectiles(self):
+        for enemy in self.all_enemies:
+            enemy.launch_enemies_projectile()
+
     def update(self, screen):
         # intégration de l'image du joueur
         screen.blit(self.player.image, self.player.rect)
@@ -41,15 +46,22 @@ class Game:
         for enemy in self.all_enemies:
             enemy.forward()
             enemy.update_health_bar(screen)
+
+        for enemy_projectile in self.enemy.all_enemies_projectiles:
+            enemy_projectile.move()
             
         for comet in self.comet_event.all_comets:
             comet.fall(screen)
 
-        # intégration de l'image du projectile
+        # intégration de l'image du projectile allié
         self.player.all_projectiles.draw(screen)
+
+        # intégration de l'image du projectile ennemi
+        self.enemy.all_enemies_projectiles.draw(screen)
 
         # intégration de l'image de l'ennemi
         self.all_enemies.draw(screen)
+        self.update_enemies_projectiles()
 
         # intégration de l'image de la comète
         self.comet_event.all_comets.draw(screen)

@@ -1,5 +1,6 @@
 import pygame
 import random
+from enemy_projectile import EnemyProjectile
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, game):
@@ -9,11 +10,16 @@ class Enemy(pygame.sprite.Sprite):
         self.max_health = 100
         self.attack = 0.3
         self.velocity = random.randint(1, 2)
+        self.all_enemies_projectiles = pygame.sprite.Group()
         self.original_image = pygame.image.load("assets/spaceship_enemy.png")
         self.image = pygame.transform.scale(self.original_image, (180, 130))
         self.rect = self.image.get_rect()
         self.rect.x = 1000 + random.randint(0, 300)
         self.rect.y = 100 + random.randint(0, 300)
+
+    # méthodes propres à la classe du joueur
+    def launch_enemies_projectile(self):
+        self.all_enemies_projectiles.add(EnemyProjectile(self, self.game))
         
     def damage(self, amount):
         self.health -= amount
@@ -41,3 +47,5 @@ class Enemy(pygame.sprite.Sprite):
             
         else:
             self.game.player.damage(self.attack)
+
+    
