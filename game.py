@@ -18,14 +18,14 @@ class Game:
         self.spawn_enemy()
         self.spawn_enemy()
         
-    def game_over(self):
+    def game_over(self, counter):
         # remettre le jeu à neuf, retirer les ennemies, remettre le joueur a 100 de vie et le jeu en attente
         self.all_enemies = pygame.sprite.Group()
         self.comet_event.all_comets = pygame.sprite.Group()
         self.comet_event.reset_percent()
         self.player.health = self.player.max_health
         self.is_playing = False
-
+    
     def update(self, screen):
         # intégration de l'image du joueur
         screen.blit(self.player.image, self.player.rect)

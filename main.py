@@ -23,6 +23,19 @@ play_button_rect = play_button.get_rect()
 play_button_rect.x = math.ceil(screen.get_width() / 2.65)
 play_button_rect.y = math.ceil(screen.get_height() / 1.5)
 
+# importer notre bannière
+game_over = pygame.image.load("assets/game_over.png")
+game_over_rect = game_over.get_rect()
+game_over_rect.x = math.ceil(screen.get_width() / 4)
+game_over_rect.y = math.ceil(screen.get_height() / 3.5)
+
+# charger notre bouton retry
+retry_button = pygame.image.load("assets/retry_button.png")
+retry_button = pygame.transform.scale(retry_button, (270, 100))
+retry_button_rect = retry_button.get_rect()
+retry_button_rect.x = math.ceil(screen.get_width() / 2.65)
+retry_button_rect.y = math.ceil(screen.get_height() / 2)
+
 #charger notre jeu
 game = Game()
 
@@ -37,13 +50,17 @@ while running:
     if game.is_playing:
         # déclencher les instructions de la partie
         game.update(screen)
-
+        
+        
     # vérifier si notre jeu n'a pas commencé
     else:
+        screen.blit(game_over, (game_over_rect))
+        screen.blit(retry_button, (retry_button_rect))
+
         # ajout de l'écran de bienvenue
         screen.blit(banner, (banner_rect))
         screen.blit(play_button, (play_button_rect))
-       
+               
     # permet la mise à jour du contenu de la fenêtre
     pygame.display.flip()
     
@@ -65,6 +82,6 @@ while running:
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             # verifie pour savoir si la souris est en collision avec le bouton jouer
-            if play_button_rect.collidepoint(event.pos):
+            if play_button_rect.collidepoint(event.pos) or retry_button_rect.collidepoint(event.pos):
                 # mettre le jeu en mode "lancé"
                 game.start()
