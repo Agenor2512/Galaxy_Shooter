@@ -25,7 +25,7 @@ class Game:
         self.comet_event.reset_percent()
         self.player.health = self.player.max_health
         self.is_playing = False
-
+    
     def update(self, screen):
         # intégration de l'image du joueur
         screen.blit(self.player.image, self.player.rect)
