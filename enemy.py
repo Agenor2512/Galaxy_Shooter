@@ -13,7 +13,7 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.original_image, (180, 130))
         self.rect = self.image.get_rect()
         self.rect.x = 1000 + random.randint(0, 300)
-        self.rect.y = 300 + random.randint(0, 300)
+        self.rect.y = 100 + random.randint(0, 300)
         
     def damage(self, amount):
         self.health -= amount
@@ -23,6 +23,12 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.y = 300 + random.randint(0, 300)
             self.velocity = random.randint(1, 2)
             self.health = self.max_health
+            
+            if self.game.comet_event.is_full_loaded():
+                self.game.all_enemies.remove(self)
+
+                # appel pour tenter de déclencher l'évènement
+                self.game.comet_event.attempt_fall()
         
     def update_health_bar(self, surface):
         
