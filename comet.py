@@ -48,4 +48,9 @@ class Comet(pygame.sprite.Sprite):
             if len(self.comet_event.all_comets) == 0:
                 self.comet_event.reset_percent()
                 self.comet_event.fall_mode = False
+        
+        if self.comet_event.game.check_collision(self, self.comet_event.game.all_players):
+            print("Joueur est touché!")
+            self.remove_comets()
+            self.comet_event.game.player.damage(20)
             
