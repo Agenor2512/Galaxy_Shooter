@@ -3,6 +3,7 @@ from player import Player
 from enemy.boss import Boss
 from comet_event import CometFallEvent
 from enemy.ship import Ship
+from sounds import SoundManager
 
 class Game:
     def __init__(self):
@@ -13,22 +14,40 @@ class Game:
         self.all_bosses = pygame.sprite.Group()
         self.comet_event = CometFallEvent(self)
         self.all_enemies = pygame.sprite.Group()
+        self.sound_manager = SoundManager()
+        self.score = 0
         self.pressed = {}
 
     def start(self):
         self.is_playing = True
         self.spawn_enemy()
         self.spawn_enemy()
-        
+
+    def add_score(self, points=10):
+        self.score += points
+
     def game_over(self):
         # remettre le jeu à neuf, retirer les ennemies, remettre le joueur a 100 de vie et le jeu en attente
+        self.all_bosses = pygame.sprite.Group()
         self.all_enemies = pygame.sprite.Group()
         self.comet_event.all_comets = pygame.sprite.Group()
         self.comet_event.reset_percent()
         self.player.health = self.player.max_health
         self.is_playing = False
+        self.score = 0
+        self.sound_manager.stop("tir")
+        self.sound_manager.stop("boss")
+        self.sound_manager.stop("start")
+        self.sound_manager.stop("welcome")
+        self.sound_manager.stop("asteroid")
+        self.sound_manager.play("game_over")
     
     def update(self, screen):
+        #afficher le score
+        font = pygame.font.SysFont("monospace", 16)
+        score_text = font.render(f"Score : {self.score}", 1, (135, 206, 250))
+        screen.blit(score_text, (20, 20))
+
         # intégration de l'image du joueur
         screen.blit(self.player.image, self.player.rect)
     
@@ -45,6 +64,7 @@ class Game:
             
         for comet in self.comet_event.all_comets:
             comet.fall(screen)
+            self.sound_manager.play("asteroid")
 
         for boss in self.all_bosses:
             boss.update_state(screen)
@@ -83,3 +103,6 @@ class Game:
 
     def spawn_boss(self):
         self.all_bosses.add(Boss(self))
+        self.spawn_enemy()
+        self.spawn_enemy()
+        self.spawn_enemy()
