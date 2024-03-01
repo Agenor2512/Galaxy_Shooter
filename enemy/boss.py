@@ -1,9 +1,9 @@
 import pygame
-import random
 from enemy.enemy import Enemy
 
 class Boss(Enemy):
     def __init__(self, game):
+        self.game = game
         image = pygame.image.load("assets/boss.png")
         image = pygame.transform.scale(image, (300, 300))
         self.original_image = image
@@ -21,7 +21,7 @@ class Boss(Enemy):
         
         if self.health <= 0:
             self.rect.x = 1800
-            self.remove(self)
+            self.game.all_bosses.remove(self)
 
     def forward(self):
         super().forward()

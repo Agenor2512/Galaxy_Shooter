@@ -16,11 +16,14 @@ class Ship(Enemy):
 
     def damage(self, amount):
         super().damage(amount)
-        
+                
         if self.health <= 0:
+            self.rect.x = 1000 + random.randint(0, 300)
+            self.velocity = random.randint(1, 2)
+            self.health = self.max_health
             
-            if self.game.comet_event.is_full_loaded():
-                self.game.all_enemies.remove(self)
+        if self.game.comet_event.is_full_loaded():
+            self.game.all_enemies.remove(self)
 
-                # appel pour tenter de déclencher l'évènement
-                self.game.comet_event.attempt_fall()
+            # appel pour tenter de déclencher l'évènement
+            self.game.comet_event.attempt_fall()

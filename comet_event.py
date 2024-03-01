@@ -7,7 +7,7 @@ class CometFallEvent:
     # lors du changement -> créer un compteur
     def __init__(self, game):
         self.percent = 0
-        self.percent_speed = 10
+        self.percent_speed = 20
         self.game = game
         self.fall_mode = False
         self.counter = 0
