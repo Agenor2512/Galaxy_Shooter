@@ -44,6 +44,7 @@ already_started = False
 
 while running:
     
+    
     # intégration de l'image de fond dans la fenêtre avec blit()
     screen.blit(background, (0, 0))
     
@@ -52,17 +53,17 @@ while running:
         # déclencher les instructions de la partie
         game.update(screen)
         
-        
     # vérifier si notre jeu n'a pas commencé
     else:
         if already_started :
             screen.blit(game_over, (game_over_rect))
             screen.blit(retry_button, (retry_button_rect))
-
+            
         else:
             # ajout de l'écran de bienvenue
             screen.blit(banner, (banner_rect))
             screen.blit(play_button, (play_button_rect))
+            game.sound_manager.play("welcome")
                
     # permet la mise à jour du contenu de la fenêtre
     pygame.display.flip()
@@ -88,4 +89,9 @@ while running:
             if play_button_rect.collidepoint(event.pos) or retry_button_rect.collidepoint(event.pos):
                 # mettre le jeu en mode "lancé"
                 already_started = True
-                game.start() 
+                game.start()
+                #jouer le son en question
+                game.sound_manager.stop("welcome")
+                game.sound_manager.play("start")
+                
+                

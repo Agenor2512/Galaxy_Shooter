@@ -4,6 +4,9 @@ from enemy.enemy import Enemy
 
 class Ship(Enemy):
     def __init__(self, game):
+        self.game = game
+        self.loot_amount = 20
+        self.set_loot_amount(self.loot_amount)
         original_image = pygame.image.load("assets/spaceship_enemy.png")
         max_health = 100
         attack = 0.3
@@ -21,7 +24,9 @@ class Ship(Enemy):
             self.rect.x = 1000 + random.randint(0, 300)
             self.velocity = random.randint(1, 2)
             self.health = self.max_health
-            
+            self.game.add_score(self.loot_amount)
+
+
         if self.game.comet_event.is_full_loaded():
             self.game.all_enemies.remove(self)
 

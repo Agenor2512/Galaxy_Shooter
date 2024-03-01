@@ -31,6 +31,9 @@ class Enemy(pygame.sprite.Sprite):
         health_bar_top = highest_circle_coordinate["y"] + health_bar_height + health_bar_margin
         self.health_bar_background_rect = [health_bar_left, health_bar_top, self.health_bar_width, health_bar_height]
         self.health_bar_foreground_rect = [health_bar_left, health_bar_top, self.health, health_bar_height]
+
+    def set_loot_amount(self, amount):
+        self.loot_amount = amount
         
     def damage(self, amount):
         self.health -= amount

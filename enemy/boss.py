@@ -4,6 +4,8 @@ from enemy.enemy import Enemy
 class Boss(Enemy):
     def __init__(self, game):
         self.game = game
+        self.loot_amount = 100
+        self.set_loot_amount(self.loot_amount)
         image = pygame.image.load("assets/boss.png")
         image = pygame.transform.scale(image, (300, 300))
         self.original_image = image
@@ -22,6 +24,7 @@ class Boss(Enemy):
         if self.health <= 0:
             self.rect.x = 1800
             self.game.all_bosses.remove(self)
+            self.game.add_score(self.loot_amount)
 
     def forward(self):
         super().forward()
