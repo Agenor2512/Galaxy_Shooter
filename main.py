@@ -4,6 +4,10 @@ from game import Game
 
 pygame.init()
 
+# définir une clock
+clock = pygame.time.Clock()
+FPS = 60
+
 pygame.display.set_caption("Galaxy Shooter")
 screen = pygame.display.set_mode((1080, 720))
 
@@ -80,6 +84,7 @@ while running:
   
             if event.key == pygame.K_SPACE:
                 game.player.launch_projectile()
+                game.sound_manager.play("tir")
                 
         elif event.type == pygame.KEYUP:        
             game.pressed[event.key] = False   
@@ -91,7 +96,10 @@ while running:
                 already_started = True
                 game.start()
                 #jouer le son en question
+                game.sound_manager.stop("boss")
+                game.sound_manager.stop("game_over")
                 game.sound_manager.stop("welcome")
                 game.sound_manager.play("start")
-                
-                
+    
+    # fixer le nombre de FPS sur ma clock            
+    clock.tick(FPS)

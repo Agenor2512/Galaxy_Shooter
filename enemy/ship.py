@@ -10,7 +10,7 @@ class Ship(Enemy):
         original_image = pygame.image.load("assets/spaceship_enemy.png")
         max_health = 100
         attack = 0.3
-        velocity = random.randint(1, 2)
+        velocity = random.randint(3, 4)
         image = pygame.transform.scale(original_image, (180, 130))
         x = 1000 + random.randint(0, 300)
         y = 100 + random.randint(0, 300)
@@ -22,7 +22,7 @@ class Ship(Enemy):
                 
         if self.health <= 0:
             self.rect.x = 1000 + random.randint(0, 300)
-            self.velocity = random.randint(1, 2)
+            self.velocity = random.randint(3, 4)
             self.health = self.max_health
             self.game.add_score(self.loot_amount)
 

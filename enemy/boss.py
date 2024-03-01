@@ -9,14 +9,13 @@ class Boss(Enemy):
         image = pygame.image.load("assets/boss.png")
         image = pygame.transform.scale(image, (300, 300))
         self.original_image = image
-        max_health = 200
+        max_health = 500
         attack = 1
         velocity = 0
         x = 600
         y = 170
         super().__init__(game, max_health, attack, velocity, image, x, y)
         self.angle = 0
-
 
     def damage(self, amount):
         super().damage(amount)

@@ -28,12 +28,19 @@ class Game:
 
     def game_over(self):
         # remettre le jeu à neuf, retirer les ennemies, remettre le joueur a 100 de vie et le jeu en attente
+        self.all_bosses = pygame.sprite.Group()
         self.all_enemies = pygame.sprite.Group()
         self.comet_event.all_comets = pygame.sprite.Group()
         self.comet_event.reset_percent()
         self.player.health = self.player.max_health
         self.is_playing = False
         self.score = 0
+        self.sound_manager.stop("tir")
+        self.sound_manager.stop("boss")
+        self.sound_manager.stop("start")
+        self.sound_manager.stop("welcome")
+        self.sound_manager.stop("asteroid")
+        self.sound_manager.play("game_over")
     
     def update(self, screen):
         #afficher le score
@@ -57,6 +64,7 @@ class Game:
             
         for comet in self.comet_event.all_comets:
             comet.fall(screen)
+            self.sound_manager.play("asteroid")
 
         for boss in self.all_bosses:
             boss.update_state(screen)
@@ -95,3 +103,6 @@ class Game:
 
     def spawn_boss(self):
         self.all_bosses.add(Boss(self))
+        self.spawn_enemy()
+        self.spawn_enemy()
+        self.spawn_enemy()
