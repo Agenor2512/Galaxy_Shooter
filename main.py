@@ -88,4 +88,4 @@ while running:
             if play_button_rect.collidepoint(event.pos) or retry_button_rect.collidepoint(event.pos):
                 # mettre le jeu en mode "lancé"
                 already_started = True
-                game.start()
+                game.start() 
