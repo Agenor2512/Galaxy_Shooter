@@ -16,6 +16,7 @@ class Game:
         self.all_enemies = pygame.sprite.Group()
         self.sound_manager = SoundManager()
         self.score = 0
+        self.score_text = ""
         self.pressed = {}
 
     def start(self):
@@ -41,13 +42,15 @@ class Game:
         self.sound_manager.stop("welcome")
         self.sound_manager.stop("asteroid")
         self.sound_manager.play("game_over")
-    
-    def update(self, screen):
-        #afficher le score
-        font = pygame.font.SysFont("monospace", 16)
-        score_text = font.render(f"Score : {self.score}", 1, (135, 206, 250))
-        screen.blit(score_text, (20, 20))
 
+    def calculate_score(self, screen):   
+        screen.blit(self.score_text, (460, 320))
+      
+    def update(self, screen):
+        font = pygame.font.SysFont("monospace", 30, True)
+        self.score_text = font.render(f"Score : {self.score}", 1, (135, 206, 250))
+        screen.blit(self.score_text, (20, 20))
+        
         # intégration de l'image du joueur
         screen.blit(self.player.image, self.player.rect)
     
@@ -93,6 +96,7 @@ class Game:
             
         elif self.pressed.get(pygame.K_DOWN) and self.player.rect.y + self.player.rect.height < screen.get_height():
             self.player.move_down()
+            
 
     def check_collision(self, sprite, group):
         return pygame.sprite.spritecollide(sprite, group, False, pygame.sprite.collide_mask)

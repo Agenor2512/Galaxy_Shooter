@@ -53,7 +53,6 @@ class Enemy(pygame.sprite.Sprite):
             
         else:
             self.game.player.damage(self.attack)
-            
 
     def update_state(self, screen):
         self.forward()
