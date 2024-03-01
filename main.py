@@ -40,6 +40,7 @@ retry_button_rect = retry_button.get_rect()
 retry_button_rect.x = math.ceil(screen.get_width() / 2.65)
 retry_button_rect.y = math.ceil(screen.get_height() / 2)
 
+
 #charger notre jeu
 game = Game()
 
@@ -61,7 +62,8 @@ while running:
     else:
         if already_started :
             screen.blit(game_over, (game_over_rect))
-            screen.blit(retry_button, (retry_button_rect))
+            screen.blit(retry_button, (retry_button_rect)) 
+            game.calculate_score(screen)
             
         else:
             # ajout de l'écran de bienvenue
