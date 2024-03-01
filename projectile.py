@@ -28,10 +28,6 @@ class Projectile(pygame.sprite.Sprite):
         for boss in self.player.game.check_collision(self, self.player.game.all_bosses):
             self.remove_shoots()
             boss.damage(self.player.attack)
-
-        for comet in self.player.game.check_collision(self, self.player.game.comet_event.all_comets):
-            self.remove_shoots()
-            comet.comet_event.game.player.damage(self.player.attack)
         
         if self.rect.x > 1080:
             self.remove_shoots()

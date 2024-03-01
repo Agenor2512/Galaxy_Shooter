@@ -5,7 +5,6 @@ import random
 class Comet(pygame.sprite.Sprite):
     def __init__(self, comet_event):
         super().__init__()
-        self.health = 20
         # définition de l'image de la comète
         self.image = pygame.image.load("assets/comet.png")
         self.image = pygame.transform.scale(self.image, (150, 150))
